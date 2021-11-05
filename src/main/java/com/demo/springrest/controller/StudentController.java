@@ -40,21 +40,10 @@ public class StudentController {
 
 	@GetMapping("/students/{studentId}")
 	public Student getStudent(@PathVariable int studentId) throws StudentNotFoundException {
-		if(studentId>= students.size() || studentId<0)
+		if (studentId >= students.size() || studentId < 0)
 			throw new StudentNotFoundException("Student Id " + studentId + " not found");
 		return students.get(studentId);
 
-	}
-	
-	@ExceptionHandler
-	public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException e)
-	{
-		StudentErrorResponse error = new StudentErrorResponse();
-		error.setStatusCode(HttpStatus.NOT_FOUND.value());
-		error.setMessage(e.getMessage());
-		error.setTimeStamp(System.currentTimeMillis());
-		return new ResponseEntity<StudentErrorResponse>(error, HttpStatus.NOT_FOUND);
-		
 	}
 
 }
